@@ -638,7 +638,7 @@
   display: inline-block;
 }
 .editormd-file-input input[type="file"] {
-  width: 75px;
+  width: 35px;
   height: 32px;
   opacity: 0;
   cursor: pointer;
