@@ -16,8 +16,7 @@ target/
 .project
 .metadata/
 .idea/
-logs/
-*.log
+
 dependency-reduced-pom.xml
 /bin
 */bin
