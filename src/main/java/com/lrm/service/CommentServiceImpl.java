@@ -31,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Transactional
     @Override
-    public Comment saveComment(Comment comment) {
+    public Comment saveComment(final Comment comment) {
         Long parentCommentId = comment.getParentComment().getId();
         if (parentCommentId != -1) {
             comment.setParentComment(commentRepository.findOne(parentCommentId));
@@ -39,7 +39,15 @@ public class CommentServiceImpl implements CommentService {
             comment.setParentComment(null);
         }
         comment.setCreateTime(new Date());
-        SendMailUtil.send("您的文章"+comment.getBlog().getTitle() + "又有新评论啦，评论人："+ comment.getNickname() +", 评论内容：" + comment.getContent() +"，快去看看吧！");
+        // 匿名内部类
+        Runnable task = new Runnable() {
+            @Override
+            public void run() { // 覆盖重写抽象方法
+                SendMailUtil.send("您的文章【"+comment.getBlog().getTitle() + "】又有新评论啦，评论人" +
+                        "【"+ comment.getNickname() +"】评论内容【" + comment.getContent() +"】快去看看吧！");
+            }
+        };
+        new Thread(task).start(); // 启动线程
         return commentRepository.save(comment);
     }
 
