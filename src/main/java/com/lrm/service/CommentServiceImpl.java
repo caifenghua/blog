@@ -2,6 +2,7 @@ package com.lrm.service;
 
 import com.lrm.dao.CommentRepository;
 import com.lrm.po.Comment;
+import com.lrm.util.SendMailUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -38,6 +39,7 @@ public class CommentServiceImpl implements CommentService {
             comment.setParentComment(null);
         }
         comment.setCreateTime(new Date());
+        SendMailUtil.send("您的文章"+comment.getBlog().getTitle() + "又有新评论啦，评论人："+ comment.getNickname() +", 评论内容：" + comment.getContent() +"，快去看看吧！");
         return commentRepository.save(comment);
     }
 

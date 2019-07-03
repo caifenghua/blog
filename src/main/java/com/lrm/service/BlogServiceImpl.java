@@ -6,6 +6,7 @@ import com.lrm.po.Blog;
 import com.lrm.po.Type;
 import com.lrm.util.MarkdownUtils;
 import com.lrm.util.MyBeanUtils;
+import com.lrm.util.SendMailUtil;
 import com.lrm.vo.BlogQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
