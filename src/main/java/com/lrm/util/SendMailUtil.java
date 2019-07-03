@@ -9,7 +9,6 @@ import javax.mail.internet.*;
 import javax.activation.*;
 
 public class SendMailUtil {
-
     static String HOST = ""; // smtp服务器
     static String FROM = ""; // 发件人地址
     static String TO = ""; // 收件人地址
@@ -19,6 +18,8 @@ public class SendMailUtil {
     static String PWD = ""; // 163的授权码
     static String SUBJECT = ""; // 邮件标题
     static String[] TOS = null;
+    static String MAILPORT = "";//端口号
+    static String SSL_FACTORY = "";
 
     static {
         try {
@@ -33,6 +34,8 @@ public class SendMailUtil {
             USER=props.getProperty("user");
             PWD=props.getProperty("pwd");
             SUBJECT=props.getProperty("subject");
+            MAILPORT=props.getProperty("mailPort");
+            SSL_FACTORY = props.getProperty("sslFactory");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,6 +49,10 @@ public class SendMailUtil {
         Properties props = new Properties();
         props.put("mail.smtp.host", HOST);//设置发送邮件的邮件服务器的属性（这里使用网易的smtp服务器）
         props.put("mail.smtp.auth", "true");  //需要经过授权，也就是有户名和密码的校验，这样才能通过验证（一定要有这一条）
+        props.setProperty("mail.smtp.socketFactory.class", SSL_FACTORY);
+        props.setProperty("mail.smtp.socketFactory.fallback", "false");
+        props.setProperty("mail.smtp.port", MAILPORT);
+        props.setProperty("mail.smtp.socketFactory.port", MAILPORT);
         Session session = Session.getDefaultInstance(props);//用props对象构建一个session
         session.setDebug(true);
         MimeMessage message = new MimeMessage(session);//用session为参数定义消息对象
