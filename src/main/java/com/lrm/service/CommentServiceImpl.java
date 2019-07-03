@@ -43,14 +43,19 @@ public class CommentServiceImpl implements CommentService {
         Runnable task = new Runnable() {
             @Override
             public void run() { // 覆盖重写抽象方法
-                SendMailUtil.send("您的文章【"+comment.getBlog().getTitle() + "】又有新评论啦，评论人" +
-                        "【"+ comment.getNickname() +"】评论内容【" + comment.getContent() +"】快去看看吧！");
+                String context = "您的文章【"+comment.getBlog().getTitle() + "】又有新评论啦，评论人" +
+                        "【"+ comment.getNickname() +"】评论内容【" + comment.getContent() +"】快去看看吧！";
+                if (comment.getContent().indexOf("傻逼") != -1 || comment.getContent().indexOf("垃圾") != -1
+                        || comment.getContent().indexOf("辣鸡") != -1 || comment.getContent().indexOf("骚") != -1
+                        || comment.getContent().indexOf("脏") != -1) {
+                    context += "(该评论含有恶意词汇，建议删除)";
+                }
+                SendMailUtil.send(context);
             }
         };
         new Thread(task).start(); // 启动线程
         return commentRepository.save(comment);
     }
-
 
     /**
      * 循环每个顶级的评论节点

@@ -603,6 +603,8 @@ h5,h6{font-size:1em;}
               <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide"><i class="edit icon"></i>发布</button>
             </div>
           </div>
+          <div class="ui error message">
+          </div>
 
         </div>
       </div>
@@ -750,6 +752,27 @@ h5,h6{font-size:1em;}
           rules: [{
             type: 'empty',
             prompt: '请输入评论内容'
+          },{
+              type   : 'doesntContainExactly[辣鸡]',
+              prompt : '大哥，请勿输入敏感词汇，可以优雅的赞美一番'
+          },{
+              type   : 'doesntContainExactly[垃圾]',
+              prompt : '大哥，请勿输入敏感词汇，可以优雅的赞美一番'
+          },{
+              type   : 'doesntContainExactly[脏]',
+              prompt : '大哥，请勿输入敏感词汇，可以优雅的赞美一番'
+          },{
+              type   : 'doesntContainExactly[骚]',
+              prompt : '大哥，请勿输入敏感词汇，可以优雅的赞美一番'
+          },{
+              type   : 'doesntContainExactly[傻逼]',
+              prompt : '大哥，请勿输入敏感词汇，可以优雅的赞美一番'
+          },{
+              type   : 'doesntContainExactly[狗]',
+              prompt : '大哥，请勿输入敏感词汇，可以优雅的赞美一番'
+          },{
+              type   : 'doesntContainExactly[法轮功]',
+              prompt : '大哥，请勿输入敏感词汇，可以优雅的赞美一番'
           }
           ]
         },
