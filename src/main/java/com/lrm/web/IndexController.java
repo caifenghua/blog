@@ -2,6 +2,7 @@ package com.lrm.web;
 
 import com.lrm.NotFoundException;
 import com.lrm.service.BlogService;
+import com.lrm.service.FriendLinkService;
 import com.lrm.service.TagService;
 import com.lrm.service.TypeService;
 import com.lrm.vo.BlogQuery;
@@ -31,6 +32,9 @@ public class IndexController {
     @Autowired
     private TagService tagService;
 
+    @Autowired
+    private FriendLinkService friendLinkService;
+
     @GetMapping("/")
     public String index(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         Model model) {
@@ -38,6 +42,7 @@ public class IndexController {
         model.addAttribute("types", typeService.listTypeTop(6));
         model.addAttribute("tags", tagService.listTagTop(10));
         model.addAttribute("recommendBlogs", blogService.listRecommendBlogTop(8));
+        model.addAttribute("friendLinks", friendLinkService.listFriendLink());
         return "index";
     }
 
