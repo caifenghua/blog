@@ -15,8 +15,8 @@ logging:
     com.lrm: info
   file: log/blog-pro.log
 
-
-
-
-
-
+server:
+  port: 443
+  ssl:
+    key-store: 2456072_www.bughua.com.pfx
+    key-store-password: inN6Lq0e
