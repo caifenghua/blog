@@ -99,7 +99,7 @@
             </div>
             <div class="ui teal segment">
               <div class="ui fluid vertical menu" >
-                <a href="#" th:href="@{'https://'+${friendLink.link}}" target="_blank" class="item"  th:each="friendLink : ${friendLinks}">
+                <a href="#" th:href="@{''+${friendLink.link}}" target="_blank" class="item"  th:each="friendLink : ${friendLinks}">
                   <span th:text="${friendLink.name}">学习日志</span>
                 </a>
               </div>

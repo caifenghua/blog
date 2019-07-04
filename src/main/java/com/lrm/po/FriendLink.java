@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 /**
  * @ClassName FriendLink
- * @Description: TODO
+ * @Description:
  * @Author: bughua
  * @CreateDate: 2019/7/4 16:26
  */

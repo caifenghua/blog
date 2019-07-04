@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @ClassName FriendLinkRepository
- * @Description: TODO
+ * @Description:
  * @Author: bughua
  * @CreateDate: 2019/7/4 16:30
  */
