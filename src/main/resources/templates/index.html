@@ -98,9 +98,9 @@
               </div>
             </div>
             <div class="ui teal segment">
-              <div class="ui fluid vertical menu" >
-                <a href="#" th:href="@{''+${friendLink.link}}" target="_blank" class="item"  th:each="friendLink : ${friendLinks}">
-                  <span th:text="${friendLink.name}">学习日志</span>
+              <div class="ui fluid vertical" >
+                <a href="#" th:href="@{''+${friendLink.link}}" target="_blank" class="ui teal tag label m-margin-tb-tiny"  th:each="friendLink : ${friendLinks}">
+                  <span th:text="${friendLink.name}">雨的记忆</span>
                 </a>
               </div>
             </div>
