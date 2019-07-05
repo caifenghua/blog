@@ -42,7 +42,7 @@
       <div class="ui top attached segment">
         <div class="ui horizontal link list">
           <div class="item">
-            <img src="https://unsplash.it/100/100?image=1005" th:src="@{${blog.user.avatar}}"  alt="" class="ui avatar image">
+            <img src="https://picsum.photos/id/1005/100/100" th:src="@{${blog.user.avatar}}"  alt="" class="ui avatar image">
             <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">bughua</a></div>
           </div>
           <div class="item">
@@ -480,7 +480,7 @@ h5,h6{font-size:1em;}
               <h3 class="ui dividing header">评论</h3>
               <div class="comment" th:each="comment : ${comments}">
                 <a class="avatar">
-                  <img src="https://unsplash.it/100/100?image=1005" th:src="@{${comment.avatar}}">
+                  <img src="https://picsum.photos/id/1005/100/100" th:src="@{${comment.avatar}}">
                 </a>
                 <div class="content">
                   <a class="author" >
@@ -500,7 +500,7 @@ h5,h6{font-size:1em;}
                 <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
                   <div class="comment" th:each="reply : ${comment.replyComments}">
                     <a class="avatar">
-                      <img src="https://unsplash.it/100/100?image=1005" th:src="@{${reply.avatar}}">
+                      <img src="https://picsum.photos/id/1005/100/100" th:src="@{${reply.avatar}}">
                     </a>
                     <div class="content">
                       <a class="author" >
@@ -524,7 +524,7 @@ h5,h6{font-size:1em;}
               <!--/*-->
               <div class="comment">
                 <a class="avatar">
-                  <img src="https://unsplash.it/100/100?image=1005">
+                  <img src="https://picsum.photos/id/1005/100/100">
                 </a>
                 <div class="content">
                   <a class="author">Elliot Fu</a>
@@ -541,7 +541,7 @@ h5,h6{font-size:1em;}
                 <div class="comments">
                   <div class="comment">
                     <a class="avatar">
-                      <img src="https://unsplash.it/100/100?image=1005">
+                      <img src="https://picsum.photos/id/1005/100/100">
                     </a>
                     <div class="content">
                       <a class="author">Jenny Hess</a>
@@ -560,7 +560,7 @@ h5,h6{font-size:1em;}
               </div>
               <div class="comment">
                 <a class="avatar">
-                  <img src="https://unsplash.it/100/100?image=1005">
+                  <img src="https://picsum.photos/id/1005/100/100">
                 </a>
                 <div class="content">
                   <a class="author">Joe Henderson</a>
