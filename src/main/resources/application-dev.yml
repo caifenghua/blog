@@ -16,10 +16,3 @@ logging:
   file: log/blog-dev.log
 
 
-server:
-  port: 443
-  ssl:
-    key-store: 2456072_www.bughua.com.pfx
-    key-store-password: inN6Lq0e
-
-
