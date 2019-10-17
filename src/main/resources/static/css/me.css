@@ -3,6 +3,12 @@ body {
     background: url("../images/bg.png");
 }
 
+td {
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
 .m-padded-mini {
     padding: 0.2em !important;
 }

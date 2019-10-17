@@ -18,7 +18,7 @@ import org.springframework.web.WebApplicationInitializer;
 import javax.swing.*;
 
 @SpringBootApplication
-public class BlogApplication extends SpringBootServletInitializer implements WebApplicationInitializer , EmbeddedServletContainerCustomizer {
+public class BlogApplication extends SpringBootServletInitializer implements WebApplicationInitializer, EmbeddedServletContainerCustomizer {
 
     @Override
     protected SpringApplicationBuilder configure (SpringApplicationBuilder application){
