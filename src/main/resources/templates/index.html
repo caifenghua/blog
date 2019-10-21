@@ -15,6 +15,9 @@
 
   <!--中间内容-->
   <div  class="m-container m-padded-tb-big animated fadeIn">
+    <div class="">
+      在线人数：<h2 class="ui orange header m-inline-block m-text-thin" th:text="${online}"> 14 </h2> 人
+    </div>
     <div class="ui container">
       <div class="ui stackable grid">
         <!--左边博客列表-->
@@ -165,14 +168,12 @@
 
       </div>
     </div>
-
   </div>
 
   <br>
   <br>
   <!--底部footer-->
 <!--  <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
-
   </footer>-->
 <!--/*/<th:block th:replace="_fragments :: script">/*/-->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>

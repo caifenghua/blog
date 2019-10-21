@@ -1,10 +1,12 @@
 package com.lrm.web;
 
 import com.lrm.NotFoundException;
+import com.lrm.listener.MyHttpSessionListener;
 import com.lrm.service.BlogService;
 import com.lrm.service.FriendLinkService;
 import com.lrm.service.TagService;
 import com.lrm.service.TypeService;
+import com.lrm.util.RandomUtil;
 import com.lrm.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.servlet.http.HttpSession;
+import java.util.Random;
 
 /**
  * Created by limi on 2017/10/13.
@@ -37,15 +42,22 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(@PageableDefault(size = 8, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
-                        Model model) {
+                        Model model, HttpSession  session) {
+        session.setAttribute("loginName",RandomUtil.generateLowerString(10));
+        session.setMaxInactiveInterval(180);
         model.addAttribute("page",blogService.listBlog(pageable));
         model.addAttribute("types", typeService.listTypeTop(6));
         model.addAttribute("tags", tagService.listTagTop(10));
         model.addAttribute("recommendBlogs", blogService.listRecommendBlogTop(8));
         model.addAttribute("friendLinks", friendLinkService.listFriendLink());
+        model.addAttribute("online", MyHttpSessionListener.online);
         return "index";
     }
 
+    @GetMapping("/online")
+    public int online(){
+        return MyHttpSessionListener.online;
+    }
 
     @PostMapping("/search")
     public String search(@PageableDefault(size = 8, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
