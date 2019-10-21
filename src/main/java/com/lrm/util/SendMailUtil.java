@@ -16,8 +16,8 @@ public class SendMailUtil {
     static String AFFIXNAME = ""; // 附件名称
     static String USER = ""; // 用户名
     static String PWD = ""; // 163的授权码
-    static String SUBJECT = ""; // 邮件标题
-    static String[] TOS = null;
+//    static String SUBJECT = ""; // 邮件标题
+//    static String[] TOS = null;
     static String MAILPORT = "";//端口号
     static String SSL_FACTORY = "";
 
@@ -28,12 +28,12 @@ public class SendMailUtil {
             HOST=props.getProperty("host");
             FROM=props.getProperty("from");
             TO=props.getProperty("to");
-            TOS=TO.split(",");
+//            TOS=TO.split(",");
             AFFIX=props.getProperty("affix");
             AFFIXNAME=props.getProperty("affixName");
             USER=props.getProperty("user");
             PWD=props.getProperty("pwd");
-            SUBJECT=props.getProperty("subject");
+//            SUBJECT=props.getProperty("subject");
             MAILPORT=props.getProperty("mailPort");
             SSL_FACTORY = props.getProperty("sslFactory");
         } catch (IOException e) {
@@ -45,7 +45,7 @@ public class SendMailUtil {
      * 发送邮件
      * @param context
      */
-    public static void send(String context) {
+    public static void send(String context, String toEmail, String subject) {
         Properties props = new Properties();
         props.put("mail.smtp.host", HOST);//设置发送邮件的邮件服务器的属性（这里使用网易的smtp服务器）
         props.put("mail.smtp.auth", "true");  //需要经过授权，也就是有户名和密码的校验，这样才能通过验证（一定要有这一条）
@@ -58,13 +58,14 @@ public class SendMailUtil {
         MimeMessage message = new MimeMessage(session);//用session为参数定义消息对象
         try {
             message.setFrom(new InternetAddress(FROM));// 加载发件人地址
+            String[] TOS = toEmail.split(",");
             InternetAddress[] sendTo = new InternetAddress[TOS.length]; // 加载收件人地址
             for (int i = 0; i < TOS.length; i++) {
                 sendTo[i] = new InternetAddress(TOS[i]);
             }
             message.addRecipients(Message.RecipientType.TO,sendTo);
             message.addRecipients(MimeMessage.RecipientType.CC, InternetAddress.parse(FROM));//设置在发送给收信人之前给自己（发送方）抄送一份，不然会被当成垃圾邮件，报554错
-            message.setSubject(SUBJECT);//加载标题
+            message.setSubject(subject);//加载标题
             Multipart multipart = new MimeMultipart();//向multipart对象中添加邮件的各个部分内容，包括文本内容和附件
             BodyPart contentPart = new MimeBodyPart();//设置邮件的文本内容
             contentPart.setText(context);
@@ -86,11 +87,6 @@ public class SendMailUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-
-    public static void main(String[] args) {
-        send("内容");
     }
 
 }

@@ -33,24 +33,34 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment saveComment(final Comment comment) {
         Long parentCommentId = comment.getParentComment().getId();
+        String toEmail = "13277090522@163.com";
         if (parentCommentId != -1) {
-            comment.setParentComment(commentRepository.findOne(parentCommentId));
+            Comment parentComment = commentRepository.findOne(parentCommentId);
+            comment.setParentComment(parentComment);
+            toEmail = parentComment.getEmail();
         } else {
             comment.setParentComment(null);
         }
         comment.setCreateTime(new Date());
         // 匿名内部类
+        final String finalToEmail = toEmail;
         Runnable task = new Runnable() {
             @Override
             public void run() { // 覆盖重写抽象方法
                 String context = "您的文章【"+comment.getBlog().getTitle() + "】又有新评论啦，评论人" +
                         "【"+ comment.getNickname() +"】评论内容【" + comment.getContent() +"】快去看看吧！";
+                String subject = "您又有新评论啦";
                 if (comment.getContent().indexOf("傻逼") != -1 || comment.getContent().indexOf("垃圾") != -1
                         || comment.getContent().indexOf("辣鸡") != -1 || comment.getContent().indexOf("骚") != -1
                         || comment.getContent().indexOf("脏") != -1) {
                     context += "(该评论含有恶意词汇，建议删除)";
                 }
-                SendMailUtil.send(context);
+                if (!"13277090522@163.com".equals(finalToEmail)){
+                    context = "您在文章【"+comment.getBlog().getTitle() + "】的评论有回复啦，回复人" +
+                            "【"+ comment.getNickname() +"】回复内容【" + comment.getContent() +"】快去看看吧！";
+                    subject = "您有新回复啦";
+                }
+                SendMailUtil.send(context, finalToEmail, subject);
             }
         };
         new Thread(task).start(); // 启动线程
