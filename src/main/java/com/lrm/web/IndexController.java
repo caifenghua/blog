@@ -1,13 +1,10 @@
 package com.lrm.web;
 
-import com.lrm.NotFoundException;
 import com.lrm.listener.MyHttpSessionListener;
-import com.lrm.service.BlogService;
-import com.lrm.service.FriendLinkService;
-import com.lrm.service.TagService;
-import com.lrm.service.TypeService;
+import com.lrm.po.AccessIp;
+import com.lrm.service.*;
+import com.lrm.util.CusAccessObjectUtil;
 import com.lrm.util.RandomUtil;
-import com.lrm.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,8 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Random;
+import java.util.Date;
 
 /**
  * Created by limi on 2017/10/13.
@@ -40,9 +38,12 @@ public class IndexController {
     @Autowired
     private FriendLinkService friendLinkService;
 
+    @Autowired
+    private AccessIpService accessIpService;
+
     @GetMapping("/")
     public String index(@PageableDefault(size = 8, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
-                        Model model, HttpSession  session) {
+                        Model model, HttpSession  session, HttpServletRequest request) {
         session.setAttribute("loginName",RandomUtil.generateLowerString(10));
         session.setMaxInactiveInterval(180);
         model.addAttribute("page",blogService.listBlog(pageable));
@@ -51,6 +52,11 @@ public class IndexController {
         model.addAttribute("recommendBlogs", blogService.listRecommendBlogTop(8));
         model.addAttribute("friendLinks", friendLinkService.listFriendLink());
         model.addAttribute("online", MyHttpSessionListener.online);
+        String ipAddress = CusAccessObjectUtil.getIpAddress(request);
+        AccessIp accessIp = new AccessIp();
+        accessIp.setIp(ipAddress);
+        accessIp.setCreate_at(new Date());
+        accessIpService.saveComment(accessIp);
         return "index";
     }
 
