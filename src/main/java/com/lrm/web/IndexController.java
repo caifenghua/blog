@@ -45,7 +45,7 @@ public class IndexController {
     public String index(@PageableDefault(size = 8, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         Model model, HttpSession  session, HttpServletRequest request) {
         session.setAttribute("loginName",RandomUtil.generateLowerString(10));
-        session.setMaxInactiveInterval(180);
+        session.setMaxInactiveInterval(1800);
         model.addAttribute("page",blogService.listBlog(pageable));
         model.addAttribute("types", typeService.listTypeTop(6));
         model.addAttribute("tags", tagService.listTagTop(10));
